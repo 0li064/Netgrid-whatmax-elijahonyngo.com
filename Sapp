@@ -1,0 +1,656 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatMax - Your World, Maxed Out</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary: #6a5af9;
+            --primary-gradient: linear-gradient(135deg, #6a5af9, #d66efd);
+            --secondary: #d66efd;
+            --dark: #1e1e2e;
+            --darker: #151521;
+            --light: #f5f5f7;
+            --success: #00cc96;
+            --warning: #ffbe0b;
+            --danger: #ff6b6b;
+            --gray: #8a8aa0;
+            --gray-light: #b2b2c2;
+            --gold: #ffd700;
+            --silver: #c0c0c0;
+            --bronze: #cd7f32;
+        }
+
+        body {
+            background: var(--darker);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 16px;
+        }
+
+        nav a:hover, nav a.active {
+            color: white;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 21, 33, 0.85);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Features Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            color: var(--primary);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--gray);
+        }
+
+        /* Platform Section */
+        .platform-section {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .platform-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .platform-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .platform-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+        }
+
+        .web .platform-icon {
+            color: var(--primary);
+        }
+
+        .ios .platform-icon {
+            color: #007aff;
+        }
+
+        .android .platform-icon {
+            color: var(--success);
+        }
+
+        .platform-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .platform-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(21, 21, 33, 0.9);
+        }
+
+        .testimonials-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .testimonial-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            position: relative;
+        }
+
+        .testimonial-card i {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 2rem;
+            color: var(--primary);
+            opacity: 0.3;
+        }
+
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-details h4 {
+            font-weight: 600;
+        }
+
+        .author-details p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            background: var(--primary-gradient);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 70px 0 30px;
+            color: var(--gray);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-comments"></i>
+                    <span>WhatMax</span>
+                </a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#platforms">Platforms</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#download">Download</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Log In</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Your World, Maxed Out</h1>
+                <p>WhatMax brings together the best of messaging, social networking, and content discovery in one seamless experience. Connect with your circles, explore new content, and share your world.</p>
+                <div class="hero-buttons">
+                    <a href="#download" class="btn btn-primary">Get Started</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Amazing Features</h2>
+                <p>WhatMax combines the best features from popular social platforms into one seamless experience</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Pods</h3>
+                    <p>Create customizable spaces for any topic or group. From private family chats to public fan communities.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>MaxStream</h3>
+                    <p>AI-powered video feed that learns from your activity to deliver hyper-personalized content.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>The Bridge</h3>
+                    <p>Seamlessly share content between different parts of the app with our innovative Bridge feature.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h3>Rewards System</h3>
+                    <p>Earn points and unlock exclusive benefits as you engage with the WhatMax community.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Privacy Focused</h3>
+                    <p>End-to-end encryption for private Pods and complete control over your data and privacy settings.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Cross-Platform Sync</h3>
+                    <p>Seamlessly switch between devices without losing your place. Your data syncs across all platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Section -->
+    <section id="platforms" class="section platform-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Available Everywhere</h2>
+                <p>Access WhatMax on all your devices with seamless synchronization between platforms</p>
+            </div>
+            
+            <div class="platform-cards">
+                <div class="platform-card web">
+                    <div class="platform-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Web Version</h3>
+                    <p>Access WhatMax directly from your browser with our full-featured web application.</p>
+                    <a href="#" class="btn btn-primary">Use Web App</a>
+                </div>
+                
+                <div class="platform-card ios">
+                    <div class="platform-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <h3>iOS App</h3>
+                    <p>Download from the App Store for the best experience on your iPhone and iPad.</p>
+                    <a href="#" class="btn btn-primary">App Store</a>
+                </div>
+                
+                <div class="platform-card android">
+                    <div class="platform-icon">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <h3>Android App</h3>
+                    <p>Get WhatMax on Google Play for all your Android devices and tablets.</p>
+                    <a href="#" class="btn btn-primary">Google Play</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Users Say</h2>
+                <p>Join millions of users worldwide who have transformed their social experience with WhatMax</p>
+            </div>
+            
+            <div class="testimonials-content">
+                <div class="testimonial-cards">
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right"></i>
+                        <p class="testimonial-content">WhatMax replaced three other apps for me. The Pods feature is genius for keeping different parts of my life organized.</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Sarah Chen">
+                            <div class="author-details">
+                                <h4>Sarah Chen</h4>
+                                <p>Digital Marketer</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right"></i>
+                        <p class="testimonial-content">The rewards system actually makes social media feel productive. I've earned enough points for two gift cards already!</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Wilson">
+                            <div class="author-details">
+                                <h4>James Wilson</h4>
+                                <p>College Student</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <i class="fas fa-quote-right"></i>
+                        <p class="testimonial-content">As
